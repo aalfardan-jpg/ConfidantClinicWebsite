@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Confident Dental — Website Audit Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Noto+Sans+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0c2340;
+    --navy-deep:#081a31;
+    --navy-soft:#1b3a5e;
+    --ice:#eef3f8;
+    --paper:#f7f9fc;
+    --white:#ffffff;
+    --gold:#c4a35a;
+    --gold-soft:#e6d6a8;
+    --red:#c0392b;
+    --amber:#cf8a1f;
+    --green:#2f7d52;
+    --line:rgba(12,35,64,.10);
+    --shadow:0 1px 3px rgba(12,35,64,.06),0 12px 32px -12px rgba(12,35,64,.18);
+    --display:'Poppins',system-ui,sans-serif;
+    --body:'Poppins',system-ui,sans-serif;
+    --mono:'Poppins',system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:var(--body);
+    background:var(--paper);
+    color:var(--navy);
+    -webkit-font-smoothing:antialiased;
+    line-height:1.5;
+    background-image:radial-gradient(circle at 12% -5%,rgba(196,163,90,.07),transparent 40%),radial-gradient(circle at 95% 0%,rgba(27,58,94,.08),transparent 45%);
+    background-attachment:fixed;
+  }
+  .wrap{max-width:1240px;margin:0 auto;padding:0 28px}
+
+  /* ---------- Header ---------- */
+  header{
+    background:linear-gradient(160deg,var(--navy) 0%,var(--navy-deep) 100%);
+    color:var(--white);
+    padding:46px 0 130px;
+    position:relative;
+    overflow:hidden;
+  }
+  header::after{
+    content:"";position:absolute;inset:0;
+    background-image:radial-gradient(circle at 85% 20%,rgba(196,163,90,.18),transparent 38%);
+    pointer-events:none;
+  }
+  .brandrow{display:flex;align-items:center;justify-content:space-between;gap:20px;position:relative;z-index:2;flex-wrap:wrap}
+  .brand{display:flex;align-items:center;gap:14px}
+  .mark{
+    width:46px;height:46px;border-radius:13px;flex:0 0 auto;
+    background:linear-gradient(135deg,var(--gold) 0%,#a98740 100%);
+    display:grid;place-items:center;font-family:var(--display);font-weight:600;font-size:24px;color:var(--navy-deep);
+    box-shadow:0 8px 20px -6px rgba(196,163,90,.5);
+  }
+  .brand h1{font-family:var(--display);font-weight:500;font-size:20px;letter-spacing:.2px;line-height:1.1}
+  .brand span{font-size:12.5px;color:rgba(255,255,255,.6);letter-spacing:.5px}
+  .urlchip{font-family:var(--mono);font-size:12px;color:var(--gold-soft);border:1px solid rgba(196,163,90,.35);padding:7px 13px;border-radius:30px;background:rgba(196,163,90,.08)}
+
+  .htitle{position:relative;z-index:2;margin-top:42px;max-width:760px}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-soft);margin-bottom:16px}
+  .htitle h2{font-family:var(--display);font-weight:300;font-size:clamp(30px,5vw,52px);line-height:1.08;letter-spacing:-.5px}
+  .htitle h2 b{font-weight:600;color:var(--gold-soft)}
+  .htitle p{margin-top:18px;font-size:15.5px;color:rgba(255,255,255,.74);max-width:620px;line-height:1.65}
+
+  /* ---------- Score band ---------- */
+  .scoreband{position:relative;z-index:3;margin-top:-92px}
+  .scoregrid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  .scard{
+    background:var(--white);border-radius:18px;padding:24px 22px;box-shadow:var(--shadow);
+    border:1px solid var(--line);position:relative;overflow:hidden;
+  }
+  .scard::before{content:"";position:absolute;top:0;left:0;width:100%;height:3px;background:var(--bar,var(--gold))}
+  .scard .lbl{font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--navy-soft);opacity:.75;font-weight:600}
+  .scard .big{font-family:var(--display);font-weight:600;font-size:42px;line-height:1;margin:12px 0 4px;letter-spacing:-1px}
+  .scard .sub{font-size:12.5px;color:var(--navy-soft);opacity:.8}
+  .scard .ring{position:absolute;right:-22px;bottom:-22px;width:90px;height:90px;border-radius:50%;border:14px solid var(--ice);opacity:.6}
+
+  /* ---------- Section ---------- */
+  section{padding:54px 0}
+  .sechead{display:flex;align-items:baseline;gap:16px;margin-bottom:8px}
+  .sechead .num{font-family:var(--mono);font-size:13px;color:var(--gold);font-weight:500}
+  .sechead h3{font-family:var(--display);font-weight:500;font-size:27px;letter-spacing:-.3px}
+  .secsub{color:var(--navy-soft);opacity:.8;font-size:14.5px;margin-bottom:28px;max-width:680px}
+
+  /* ---------- Category cards ---------- */
+  .catgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:18px}
+  .cat{
+    background:var(--white);border-radius:16px;border:1px solid var(--line);box-shadow:var(--shadow);
+    overflow:hidden;transition:transform .25s ease,box-shadow .25s ease;display:flex;flex-direction:column;
+  }
+  .cat:hover{transform:translateY(-3px);box-shadow:0 1px 3px rgba(12,35,64,.06),0 22px 44px -16px rgba(12,35,64,.28)}
+  .cat .top{padding:20px 22px 16px;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;cursor:pointer}
+  .cat .cname{font-family:var(--display);font-weight:500;font-size:18px;line-height:1.25}
+  .cat .cmeta{font-size:12px;color:var(--navy-soft);opacity:.7;margin-top:4px;font-family:var(--mono)}
+  .pill{font-size:11px;font-weight:600;padding:5px 11px;border-radius:30px;white-space:nowrap;letter-spacing:.3px;flex:0 0 auto;display:inline-flex;align-items:center;gap:6px}
+  .pill::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+  .st-strong{background:rgba(47,125,82,.12);color:var(--green)}
+  .st-warn{background:rgba(207,138,31,.14);color:var(--amber)}
+  .st-weak{background:rgba(192,57,43,.12);color:var(--red)}
+  .cat .body{padding:0 22px;max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.4,0,.2,1),padding .4s}
+  .cat.open .body{max-height:900px;padding:0 22px 22px}
+  .cat .arrow{transition:transform .3s;color:var(--navy-soft);opacity:.5}
+  .cat.open .arrow{transform:rotate(180deg)}
+  .findlist{list-style:none;border-top:1px solid var(--line);padding-top:14px}
+  .findlist li{font-size:13.7px;color:var(--navy-soft);padding:7px 0 7px 22px;position:relative;line-height:1.55;border-bottom:1px dashed var(--line)}
+  .findlist li:last-child{border-bottom:none}
+  .findlist li::before{content:"";position:absolute;left:2px;top:13px;width:6px;height:6px;border-radius:2px;background:var(--gold);transform:rotate(45deg)}
+  .findlist li.good::before{background:var(--green)}
+  .findlist li b{color:var(--navy);font-weight:600}
+  .arabic{font-family:'Noto Sans Arabic',sans-serif;direction:rtl;unicode-bidi:isolate;font-size:.85em;color:var(--navy);opacity:.85;font-weight:500}
+
+  /* ---------- Priority table ---------- */
+  .filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}
+  .fbtn{
+    font-family:var(--body);font-size:13px;font-weight:500;padding:9px 16px;border-radius:30px;cursor:pointer;
+    border:1px solid var(--line);background:var(--white);color:var(--navy-soft);transition:all .2s;display:flex;align-items:center;gap:8px;
+  }
+  .fbtn:hover{border-color:var(--navy-soft)}
+  .fbtn.active{background:var(--navy);color:var(--white);border-color:var(--navy)}
+  .fbtn .cnt{font-family:var(--mono);font-size:11px;opacity:.7}
+  .ptable{background:var(--white);border-radius:16px;border:1px solid var(--line);box-shadow:var(--shadow);overflow:hidden}
+  .prow{display:grid;grid-template-columns:90px 1fr 200px;gap:18px;align-items:center;padding:16px 24px;border-bottom:1px solid var(--line);transition:background .18s}
+  .prow:last-child{border-bottom:none}
+  .prow:hover{background:var(--paper)}
+  .prow.hide{display:none}
+  .prio{font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:6px 0;border-radius:8px;text-align:center;display:flex;align-items:center;justify-content:center;gap:6px}
+  .prio::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor}
+  .p-high{background:rgba(192,57,43,.1);color:var(--red)}
+  .p-med{background:rgba(207,138,31,.12);color:var(--amber)}
+  .p-low{background:rgba(47,125,82,.1);color:var(--green)}
+  .pissue{font-size:14.5px;font-weight:500;color:var(--navy)}
+  .pimpact{font-size:12.5px;color:var(--navy-soft);font-family:var(--mono);text-align:right;opacity:.85}
+  .thead{display:grid;grid-template-columns:90px 1fr 200px;gap:18px;padding:14px 24px;background:var(--navy);color:rgba(255,255,255,.65);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;font-weight:600}
+  .thead span:last-child{text-align:right}
+
+  /* ---------- Quick wins ---------- */
+  .qwgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+  .qw{background:var(--navy);color:var(--white);border-radius:16px;padding:24px 22px;position:relative;overflow:hidden}
+  .qw::after{content:"";position:absolute;right:-30px;top:-30px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,rgba(196,163,90,.3),transparent 70%)}
+  .qw .qn{font-family:var(--mono);font-size:12px;color:var(--gold-soft);margin-bottom:10px}
+  .qw h4{font-family:var(--display);font-weight:500;font-size:18px;margin-bottom:8px;position:relative;z-index:2}
+  .qw p{font-size:13px;color:rgba(255,255,255,.72);line-height:1.55;position:relative;z-index:2}
+
+  footer{padding:40px 0 56px;text-align:center;color:var(--navy-soft);opacity:.6;font-size:12.5px;font-family:var(--mono)}
+  footer b{color:var(--gold)}
+
+  @media (max-width:780px){
+    .scoregrid{grid-template-columns:repeat(2,1fr)}
+    .prow,.thead{grid-template-columns:64px 1fr;}
+    .pimpact,.thead span:last-child{display:none}
+    .htitle h2{font-size:30px}
+  }
+
+  /* entrance */
+  .reveal{opacity:0;transform:translateY(16px);animation:rise .7s cubic-bezier(.2,.7,.2,1) forwards}
+  @keyframes rise{to{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="brandrow">
+      <div class="brand">
+        <div class="mark">C</div>
+        <div>
+          <h1>Confident Dental Clinics</h1>
+          <span>WEBSITE AUDIT · RIYADH</span>
+        </div>
+      </div>
+      <div class="urlchip">confident.sa</div>
+    </div>
+    <div class="htitle">
+      <div class="eyebrow">Audit Dashboard</div>
+      <h2>A polished first impression, held back by gaps in <b>trust, contact &amp; SEO</b>.</h2>
+      <p>The site communicates a clear luxury identity and makes booking frictionless. The most urgent work is on trust signals, contact completeness, and technical SEO — addressing these could meaningfully lift appointment conversions.</p>
+    </div>
+  </div>
+</header>
+
+<div class="wrap scoreband">
+  <div class="scoregrid" id="scoregrid"></div>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="sechead"><span class="num">01</span><h3>Audit by Category</h3></div>
+    <p class="secsub">Eight review areas, color-coded by health. Click any card to expand the detailed findings.</p>
+    <div class="catgrid" id="catgrid"></div>
+  </div>
+</section>
+
+<section style="background:linear-gradient(180deg,transparent,rgba(238,243,248,.6) 12%,rgba(238,243,248,.6) 88%,transparent)">
+  <div class="wrap">
+    <div class="sechead"><span class="num">02</span><h3>Priority Action List</h3></div>
+    <p class="secsub">16 recommendations ranked by urgency. Filter by priority to plan the roadmap.</p>
+    <div class="filters" id="filters"></div>
+    <div class="ptable">
+      <div class="thead"><span>Priority</span><span>Issue</span><span>Impact</span></div>
+      <div id="ptable"></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sechead"><span class="num">03</span><h3>Six High-Impact Quick Wins</h3></div>
+    <p class="secsub">The fixes with the best effort-to-payoff ratio — most are straightforward to ship.</p>
+    <div class="qwgrid" id="qwgrid"></div>
+  </div>
+</section>
+
+<footer class="wrap">
+  Generated from the Confident Dental Clinics website audit · <b>confident.sa</b><br>
+  16 prioritized actions · 8 categories reviewed
+</footer>
+
+<script>
+const cats = [
+  {n:"01",name:"Visual Design & Branding",status:"strong",bar:"var(--green)",meta:"COHESIVE · PREMIUM",
+   findings:[
+     {g:true,t:"Cohesive navy & white palette conveys trust and cleanliness; clean logo and strong hero impression."},
+     {g:true,t:"Real clinic photography (reception, treatment rooms, exterior) adds authenticity."},
+     {t:"Hero background shows a <b>living-room/lounge setting</b>, not a clinical environment — may confuse first-time visitors."},
+     {t:"Equipment carousel uses <b>English-only labels</b> on an Arabic-first site; should be bilingual."},
+     {t:'Typo in the medical-team subheading — the word for "commitment" is misspelled <span class="arabic">"الإلنزام"</span> instead of <span class="arabic">"الالتزام"</span>.'},
+     {t:'A specialist is listed without the <b>"Dr." prefix</b> <span class="arabic">("د.")</span> used for all other staff <span class="arabic">— فايزه مطر العنزي</span>.'}
+   ]},
+  {n:"02",name:"Content & Messaging",status:"warn",bar:"var(--amber)",meta:"NEEDS IMPROVEMENT",
+   findings:[
+     {g:true,t:'"Our Story" defines the luxury positioning; services list a specialist per treatment.'},
+     {t:"<b>No pricing</b> or note of free consultations anywhere — deters patients planning ahead."},
+     {t:"<b>No working hours</b> listed on any page — a critical omission for a clinic."},
+     {t:"Contact form dropdown offers only <b>3 options</b> vs 9+ specialist services offered."},
+     {t:"<b>No testimonials, reviews, or before/after gallery</b> — key conversion elements missing."},
+     {t:"Chatbot greets in <b>English</b> on an entirely Arabic site."},
+     {t:'About page shows <b>8 doctors</b>, homepage lists <b>21</b> — inconsistent team size.'}
+   ]},
+  {n:"03",name:"SEO & Technical",status:"warn",bar:"var(--amber)",meta:"PARTIALLY ADDRESSED",
+   findings:[
+     {g:true,t:'HTTPS active, <code>lang="ar"</code> set, meta description, viewport, and unique titles all present.'},
+     {t:"<b>No canonical tag</b> on any page — duplicate-content risk."},
+     {t:"<b>No Open Graph or Twitter/X cards</b> — no preview when shared on WhatsApp, X, or Snapchat."},
+     {t:'Brand name is spelled inconsistently in the meta description — missing a letter <span class="arabic">("كونفدنت")</span> versus the correct form <span class="arabic">("كونفيدنت")</span>.'},
+     {t:"<b>No Schema.org markup</b> (MedicalClinic/Dentist/LocalBusiness) for rich local results."},
+     {t:"<b>No sitemap.xml or robots.txt</b> visible."},
+     {t:"H1 has a double space; many of 69 images use generic alt text ('Image 1', 'Background')."}
+   ]},
+  {n:"04",name:"User Experience (UX)",status:"warn",bar:"var(--amber)",meta:"NEEDS IMPROVEMENT",
+   findings:[
+     {g:true,t:"Clear sticky navigation; prominent, repeated booking CTA; creative inline doctor-selection."},
+     {t:"Booking forms capture only name & phone — <b>no date/time selection</b>, likely causing no-shows."},
+     {t:"<b>No confirmation/success message</b> after form submission."},
+     {t:"<b>About Us page has no nav menu</b> — only 'Return to Home', a dead-end from Google."},
+     {t:"<b>Location map appears blank/grey</b> — possible missing API key or load issue."},
+     {t:"21-doctor carousel with tiny arrows is tedious; a grid or specialty filter would serve better."}
+   ]},
+  {n:"05",name:"Trust & Credibility",status:"weak",bar:"var(--red)",meta:"WEAK · TOP GAP",
+   findings:[
+     {t:"<b>No patient reviews or testimonials</b> anywhere."},
+     {t:"<b>No accreditation/licensing badges</b> (SCFHS, MoH license numbers)."},
+     {t:"<b>No years of establishment</b>, statistics, media mentions, or awards."},
+     {t:"Doctor profiles lack credentials, schooling, experience, or bios."},
+     {t:"Community initiatives & free screenings are excellent but hidden on a secondary page — belong on the homepage."}
+   ]},
+  {n:"06",name:"Contact & Accessibility",status:"warn",bar:"var(--amber)",meta:"PARTIAL",
+   findings:[
+     {g:true,t:"Phone, email, address listed; social links (X, TikTok, Snapchat, Instagram) present and functional."},
+     {t:"<b>No WhatsApp link</b> — the dominant healthcare booking channel in Saudi Arabia."},
+     {t:"Phone number is <b>plain text, not a tel: link</b> — no tap-to-call on mobile."},
+     {t:"<b>Opening hours completely missing</b> from both homepage and About page."},
+     {t:"Contact form dropdown limited to 3 of 9+ services."}
+   ]},
+  {n:"07",name:"Mobile Considerations",status:"warn",bar:"var(--amber)",meta:"NEEDS TESTING",
+   findings:[
+     {g:true,t:"Viewport tag correctly set."},
+     {t:"Expandable doctor panels with inline forms may be hard to use on small screens."},
+     {t:"Equipment & doctor carousels are navigation-heavy and frustrating on mobile."},
+     {t:"Living-room hero image may not frame well in portrait orientation."}
+   ]},
+  {n:"08",name:"Clinic-Specific Gaps",status:"weak",bar:"var(--red)",meta:"NOTABLE",
+   findings:[
+     {t:"<b>No insurance acceptance</b> info (Tawuniya, Bupa, AXA) — a critical decision factor in Riyadh."},
+     {t:"<b>No emergency/after-hours contact</b> despite listing emergency dentistry."},
+     {t:"<b>No Arabic-language chatbot</b> — the main interactive element defaults to English."},
+     {t:"Pediatric dentistry lacks kid-friendly visual language to reassure parents."}
+   ]}
+];
+
+const actions = [
+  {p:"high",issue:"Add WhatsApp contact button",impact:"Patient acquisition"},
+  {p:"high",issue:"Fix chatbot to default to Arabic",impact:"UX + trust"},
+  {p:"high",issue:"Add opening hours to contact section",impact:"Essential info"},
+  {p:"high",issue:"Add Open Graph / social sharing tags",impact:"Social reach"},
+  {p:"high",issue:"Add Schema.org LocalBusiness / Dentist markup",impact:"Local SEO"},
+  {p:"high",issue:"Expand contact form dropdown to all services",impact:"Lead quality"},
+  {p:"med",issue:"Add patient testimonials section",impact:"Trust & conversions"},
+  {p:"med",issue:"Make phone number a tel: link",impact:"Mobile UX"},
+  {p:"med",issue:"Add canonical tags",impact:"SEO hygiene"},
+  {p:"med",issue:"Fix equipment carousel to bilingual labels",impact:"Consistency"},
+  {p:"med",issue:"Add insurance acceptance information",impact:"Patient decision-making"},
+  {p:"med",issue:"Add full navigation to About Us page",impact:"UX dead-end fix"},
+  {p:"low",issue:"Enrich image alt text (replace 'Image 1' etc.)",impact:"SEO"},
+  {p:"low",issue:"Add doctor bios / credentials",impact:"Trust"},
+  {p:"low",issue:'Fix typos and add the "Dr." prefix <span class="arabic">(الإلنزام، د.)</span>',impact:"Professionalism"},
+  {p:"low",issue:"Fix meta description brand spelling",impact:"SEO"}
+];
+
+const quickWins = [
+  {t:"WhatsApp button",d:"A click-to-WhatsApp button is standard for clinics in the region and matches how patients actually book."},
+  {t:"Arabic chatbot",d:"Switch the greeting and flow to Arabic to remove the jarring language mismatch on the main interactive element."},
+  {t:"Opening hours",d:"Add hours to the contact section — currently absent from every page, a critical clinic detail."},
+  {t:"Social share tags",d:"Open Graph + X cards generate proper preview cards when the site is shared on WhatsApp, X, and Snapchat."},
+  {t:"tel: phone link",d:"Wrap the displayed number in a tel: link so mobile visitors can tap to call instantly."},
+  {t:"Local SEO schema",d:"JSON-LD Dentist/LocalBusiness markup surfaces address, hours, and reviews directly in Google results."}
+];
+
+const statusLabel = {strong:"Strong",warn:"Needs Work",weak:"Weak"};
+const statusClass = {strong:"st-strong",warn:"st-warn",weak:"st-weak"};
+
+// ---- Score band ----
+const counts = {strong:0,warn:0,weak:0};
+cats.forEach(c=>counts[c.status]++);
+const highCount = actions.filter(a=>a.p==="high").length;
+const scards = [
+  {lbl:"Overall Health",big:"B−",sub:"Strong shell, weak signals",bar:"var(--amber)"},
+  {lbl:"Strong Areas",big:"1/8",sub:"Visual design & branding",bar:"var(--green)"},
+  {lbl:"High-Priority Fixes",big:highCount,sub:"Ship these first",bar:"var(--red)"},
+  {lbl:"Total Actions",big:actions.length,sub:"Across 8 categories",bar:"var(--gold)"}
+];
+document.getElementById('scoregrid').innerHTML = scards.map((s,i)=>`
+  <div class="scard reveal" style="--bar:${s.bar};animation-delay:${i*.08}s">
+    <div class="ring"></div>
+    <div class="lbl">${s.lbl}</div>
+    <div class="big">${s.big}</div>
+    <div class="sub">${s.sub}</div>
+  </div>`).join('');
+
+// ---- Category cards ----
+document.getElementById('catgrid').innerHTML = cats.map((c,i)=>`
+  <div class="cat reveal" style="animation-delay:${.1+i*.05}s">
+    <div class="top" onclick="this.parentElement.classList.toggle('open')">
+      <div>
+        <div class="cname">${c.name}</div>
+        <div class="cmeta">${c.meta}</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:10px">
+        <span class="pill ${statusClass[c.status]}">${statusLabel[c.status]}</span>
+        <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+    </div>
+    <div class="body">
+      <ul class="findlist">
+        ${c.findings.map(f=>`<li class="${f.g?'good':''}">${f.t}</li>`).join('')}
+      </ul>
+    </div>
+  </div>`).join('');
+
+// ---- Filters + table ----
+const pClass={high:"p-high",med:"p-med",low:"p-low"};
+const pLabel={high:"High",med:"Medium",low:"Low"};
+const filterDefs=[
+  {k:"all",label:"All"},
+  {k:"high",label:"High"},
+  {k:"med",label:"Medium"},
+  {k:"low",label:"Low"}
+];
+function renderFilters(active){
+  document.getElementById('filters').innerHTML=filterDefs.map(f=>{
+    const cnt = f.k==="all"?actions.length:actions.filter(a=>a.p===f.k).length;
+    return `<button class="fbtn ${active===f.k?'active':''}" onclick="setFilter('${f.k}')">${f.label}<span class="cnt">${cnt}</span></button>`;
+  }).join('');
+}
+function renderTable(){
+  document.getElementById('ptable').innerHTML=actions.map(a=>`
+    <div class="prow" data-p="${a.p}">
+      <div class="prio ${pClass[a.p]}">${pLabel[a.p]}</div>
+      <div class="pissue">${a.issue}</div>
+      <div class="pimpact">${a.impact}</div>
+    </div>`).join('');
+}
+function setFilter(k){
+  renderFilters(k);
+  document.querySelectorAll('.prow').forEach(r=>{
+    r.classList.toggle('hide', k!=="all" && r.dataset.p!==k);
+  });
+}
+renderFilters("all");
+renderTable();
+
+// ---- Quick wins ----
+document.getElementById('qwgrid').innerHTML=quickWins.map((q,i)=>`
+  <div class="qw">
+    <div class="qn">QW · 0${i+1}</div>
+    <h4>${q.t}</h4>
+    <p>${q.d}</p>
+  </div>`).join('');
+
+// open the two weak categories by default for emphasis
+document.querySelectorAll('.cat').forEach((el,idx)=>{
+  if(cats[idx].status==="weak") el.classList.add('open');
+});
+</script>
+</body>
+</html>
